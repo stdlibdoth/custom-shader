@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Experimental.Rendering;
 
 public class OutlineCompositePass:ScriptableRenderPass
 {
@@ -14,7 +15,6 @@ public class OutlineCompositePass:ScriptableRenderPass
 
     private const string m_tempTexture = "TempTexture";
     private const string m_outlineComposePassName = "OutlineCompPass";
-    private const string m_outlineCopyPassName = "OutlineCopyPass";
 
 
     public OutlineCompositePass(Material mat)
@@ -24,7 +24,7 @@ public class OutlineCompositePass:ScriptableRenderPass
             RenderTextureFormat.Default, 0);
     }
 
-    public void SetOulineTexture(RTHandle outlineRT)
+    public void SetOutlineRT(RTHandle outlineRT)
     {
         m_outlineRT = outlineRT;
     }
@@ -32,11 +32,6 @@ public class OutlineCompositePass:ScriptableRenderPass
     private static void ExecutePass(PassData data, RasterGraphContext context, int pass)
     {
         Blitter.BlitTexture(context.cmd, data.src, m_ScaleBias, data.material, pass);
-    }
-
-    static void ExecutePass(PassData data, RasterGraphContext context)
-    {
-        Blitter.BlitTexture(context.cmd, data.src, new Vector4(1, 1, 0, 0), 0, false);
     }
 
     private class PassData
@@ -63,9 +58,16 @@ public class OutlineCompositePass:ScriptableRenderPass
 
         var srcCamColor = resourceData.activeColorTexture;
         var outlineTex = renderGraph.ImportTexture(m_outlineRT);
+        m_outlineRTDesc.width = cameraData.cameraTargetDescriptor.width;
+        m_outlineRTDesc.height = cameraData.cameraTargetDescriptor.height;
+        m_outlineRTDesc.depthStencilFormat = GraphicsFormat.D32_SFloat_S8_UInt;
+        m_outlineRTDesc.depthBufferBits = 0;
         TextureHandle dst = UniversalRenderer.CreateRenderGraphTexture(renderGraph,
                 m_outlineRTDesc, m_tempTexture, false);
 
+
+        if (!srcCamColor.IsValid() || !dst.IsValid())
+            return;
 
         using (var builder = renderGraph.AddRasterRenderPass<PassData>(m_outlineComposePassName, out var passData))
         {
@@ -80,14 +82,6 @@ public class OutlineCompositePass:ScriptableRenderPass
             builder.SetRenderFunc((PassData data, RasterGraphContext context) => ExecutePass(data, context, 0));
         }
 
-        using (var builder = renderGraph.AddRasterRenderPass<PassData>(m_outlineCopyPassName, out var passData))
-        {
-            passData.src = dst;
-            passData.material = m_mat;
-
-            builder.UseTexture(passData.src);
-            builder.SetRenderAttachment(srcCamColor, 0);
-            builder.SetRenderFunc((PassData data, RasterGraphContext context) => ExecutePass(data, context));
-        }
+        resourceData.cameraColor = dst;
     }
 }

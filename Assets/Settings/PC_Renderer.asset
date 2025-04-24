@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_outlineSettings:
-    color: {r: 0.2852254, g: 1, b: 0, a: 1}
-    thickness: 0.2
+    color: {r: 1, g: 0.11006278, b: 0.9284418, a: 1}
+    thickness: 0.56
     depthRange: {x: 0, y: 0.41}
   m_outlineShader: {fileID: 4800000, guid: c7163437e26aeb540980bbf11623f3c6, type: 3}
   m_composeShader: {fileID: 4800000, guid: c48e373520af64b43a53c282f76d4da1, type: 3}
   m_debug: {fileID: 0}
-  m_rt: {fileID: 8400000, guid: f8baa3532545d384ba6820f4dd5c1815, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

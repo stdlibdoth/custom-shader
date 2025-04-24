@@ -23,7 +23,7 @@ float4 OutlineFragment(Varyings i):SV_Target
     float2 uv = i.texcoord;
     float4 original = SAMPLE_TEXTURE2D(_BlitTexture, sampler_BlitTexture, uv);
     // For testing;
-    float4 depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_CameraDepthTexture, uv);
+    //float4 depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_CameraDepthTexture, uv);
     // Four sample UV points.
     float offset_positive = +ceil(_Thickness * 0.5); 
     float offset_negative = -floor(_Thickness * 0.5); 

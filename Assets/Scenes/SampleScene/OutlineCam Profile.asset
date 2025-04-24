@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e541eea4a353244b9b9ca5a2e4ed2f, type: 3}
   m_Name: OutlineVolumeComponent
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   thickness:
     m_OverrideState: 1
     m_Value: 0.05

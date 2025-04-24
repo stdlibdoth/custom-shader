@@ -29,17 +29,24 @@ public class OutlineRenderFeature : ScriptableRendererFeature
     private OutlineRenderPass m_outlineRenderPass;
     private OutlineCompositePass m_compositePass;
 
-    private RTHandle m_tempTexture;
+    private RenderTextureDescriptor m_outlineTextureDesc;
+
+    private RTHandle m_outlineRT;
+
+    private RenderTexture m_renderTexture;
     private int m_featureState;
 
     public override void Create()
     {
         if (m_outlineShader == null || m_composeShader == null)
             return;
-        RenderTexture rt = new RenderTexture(Screen.width, Screen.height, 0,RenderTextureFormat.ARGB32);
-        rt.filterMode = FilterMode.Bilinear;
-        rt.graphicsFormat = GraphicsFormat.R8G8B8A8_UNorm;
-        m_tempTexture = RTHandles.Alloc(rt);
+        m_outlineTextureDesc = new RenderTextureDescriptor(Screen.width, Screen.height,
+            RenderTextureFormat.Default, 0);
+        m_outlineTextureDesc.depthBufferBits = 0;
+        m_renderTexture = new RenderTexture(m_outlineTextureDesc);
+        m_renderTexture.filterMode = FilterMode.Bilinear;
+        m_outlineRT = RTHandles.Alloc(m_renderTexture);
+
         m_outlineMat = new Material(m_outlineShader);
         m_composeMat = new Material(m_composeShader);
         m_outlineRenderPass = new OutlineRenderPass(m_outlineMat, m_outlineSettings);
@@ -47,7 +54,7 @@ public class OutlineRenderFeature : ScriptableRendererFeature
 
         m_outlineRenderPass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
         m_compositePass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
-        m_debug = rt;
+        m_debug = m_renderTexture;
         m_featureState = 0;
     }
 
@@ -63,7 +70,7 @@ public class OutlineRenderFeature : ScriptableRendererFeature
                 if (cameraData.cameraType == CameraType.Game && comp.active)
                 {
                     m_featureState = 1;
-                    cameraData.targetTexture = m_tempTexture;
+                    m_outlineRenderPass.SetRTHandle(m_outlineRT);
                     renderer.EnqueuePass(m_outlineRenderPass);
                 }
             }
@@ -74,7 +81,7 @@ public class OutlineRenderFeature : ScriptableRendererFeature
             {
                 if (m_featureState == 1)
                 {
-                    m_compositePass.SetOulineTexture(m_tempTexture);
+                    m_compositePass.SetOutlineRT(m_outlineRT);
                     renderer.EnqueuePass(m_compositePass);
                 }
                  m_featureState = 0;
@@ -89,16 +96,19 @@ public class OutlineRenderFeature : ScriptableRendererFeature
         if (EditorApplication.isPlaying)
         {
             Destroy(m_outlineMat);
-            m_tempTexture.Release();
+            Destroy(m_composeMat);
+            m_outlineRT.Release();
         }
-        else
+        else if( m_featureState == 0)
         {
             DestroyImmediate(m_outlineMat);
-            m_tempTexture.Release();
+            DestroyImmediate(m_composeMat);
+            m_outlineRT.Release();
         }
 #else
-        Destroy(m_material);
-            m_tempTexture.Release();
+        Destroy(m_outlineMat);
+        Destroy(m_composeMat);
+        m_outlineRT.Release();
 #endif
     }
 
