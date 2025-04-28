@@ -109,8 +109,7 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras:
-  - {fileID: 0}
+  m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -187,11 +186,17 @@ MonoBehaviour:
   m_rootTransform: {fileID: 104703933304890794}
   m_cameraTransform: {fileID: 8787553946557110864}
   m_zoomSpeed: 1
-  m_initialZoom: 7
+  m_initialZoom: 10
   m_zoomRange: {x: 2, y: 50}
+  m_orthoZoomRange: {x: 2, y: 15}
+  m_initialOrthoZoom: 8
   m_pitchRange: {x: 20, y: 89}
   m_initialPitch: 50
   m_pitchSpeed: 30
   rotateSpeed: 30
+  m_isEdgeScroll: 0
   m_scrollEdgeWidth: {x: 10, y: 10}
   m_edgeScrollSpeed: 30
+  m_panFloorMask:
+    serializedVersion: 2
+    m_Bits: 0

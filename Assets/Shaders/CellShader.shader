@@ -8,7 +8,8 @@ Shader "Custom/URP/CellShader"
         _diffuseColor("Diffuse Color", Color) = (1,1,1,1)
         _rimColor("Rim Color", Color) = (1,1,1,1)
         _specularColor("Specular Color", Color) = (1,1,1,1)
-        _shadowColor("Shadow Color", Color) = (0.1,0.1,0.1,1)
+        _diffuseShadowColor("Diffuse Shadow Color", Color) = (0.1,0.1,0.1,1)
+        _externalShadowColor("External Shadow Color", Color) = (0.1,0.1,0.1,1)
         
         _shadowIntensityShift("Shadow shift",Float) = 0.1
         _rampCutoff("Shadow Cut Off", Float) = 0

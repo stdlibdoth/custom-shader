@@ -33,7 +33,8 @@ CBUFFER_START(UnityPerMaterial)
     float4 _diffuseColor;
     float4 _rimColor;
     float4 _specularColor;
-    float4 _shadowColor;
+    float4 _diffuseShadowColor;
+    float4 _externalShadowColor;
 
 
     float _shadowIntensityShift;
@@ -52,7 +53,8 @@ float FresnelIntensity(float3 normal, float3 viewDir, float Power)
 
 float DiffuseIntensity(Light l, float3 normal)
 {
-    return l.shadowAttenuation*saturate(dot(l.direction,normal));
+    //return l.shadowAttenuation*saturate(dot(l.direction,normal));
+    return saturate(dot(l.direction,normal));
 }
 
 float SpecularIntensity(Light l,float3 viewDir, float3 normal ,float smoothness)
@@ -82,11 +84,14 @@ half4 frag(FragData IN) : SV_Target
 
     //Diffuse
     float diffuseIntensity = DiffuseIntensity(mainLight,normalWS);
-    float3 diffuseHighlight = smoothstep(_rampCutoff, _rampCutoff+ _rampRolloff,diffuseIntensity) * mainLight.color*_diffuseColor.xyz;
-    float3 diffuseShadow = (1-step(_rampCutoff+ _rampRolloff,diffuseIntensity))*_shadowColor.xyz*_shadowIntensityShift;
-    
-    float3 diffuse = max(diffuseHighlight,diffuseShadow);
 
+    float3 diffuseShadowMask = step(_rampCutoff+ _rampRolloff,diffuseIntensity);
+    float3 diffuseShadow = (1-diffuseShadowMask)*_diffuseShadowColor.xyz*_shadowIntensityShift; 
+    float3 externalShadow = diffuseShadowMask*(1-mainLight.shadowAttenuation)*_externalShadowColor.xyz;
+
+    float3 diffuseHighlight = smoothstep(_rampCutoff, _rampCutoff+ _rampRolloff,diffuseIntensity)* mainLight.shadowAttenuation * mainLight.color*_diffuseColor.xyz;
+
+    float3 diffuse = max(diffuseHighlight,diffuseShadow) + externalShadow;
     //Specular
     float3 viewDir = GetWorldSpaceNormalizeViewDir(IN.positionWS);
     float specularIntensity = diffuseIntensity * SpecularIntensity(mainLight,viewDir,normalWS,_smoothness);

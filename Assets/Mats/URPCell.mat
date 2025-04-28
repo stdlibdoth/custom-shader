@@ -130,19 +130,21 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _rampCutoff: 0.03
-    - _rampRolloff: 0.01
-    - _rimIntensity: 12.8
+    - _rampCutoff: 0.16
+    - _rampRolloff: 0.02
+    - _rimIntensity: 100
     - _shadowCutoff: 0.03
     - _shadowIntensityShift: 0.1
     - _shadowRolloff: 0.01
-    - _smoothness: 300
+    - _smoothness: 182.7
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _diffuseColor: {r: 0.40251565, g: 0.40251565, b: 0.40251565, a: 1}
+    - _diffuseColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+    - _diffuseShadowColor: {r: 1, g: 0.380503, b: 0.380503, a: 1}
+    - _externalShadowColor: {r: 0.32704395, g: 0.32704395, b: 0.32704395, a: 1}
     - _rimColor: {r: 1, g: 0.8964209, b: 0.77672946, a: 1}
     - _shadowColor: {r: 0.26100624, g: 0.27141482, b: 1, a: 1}
     - _specularColor: {r: 0.9685534, g: 0.8993172, b: 0.8193109, a: 1}
