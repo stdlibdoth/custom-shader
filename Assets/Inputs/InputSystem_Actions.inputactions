@@ -2,6 +2,154 @@
     "name": "InputSystem_Actions",
     "maps": [
         {
+            "name": "CameraControlMap",
+            "id": "1a6e9534-484d-40f8-ab92-8a74eea97a80",
+            "actions": [
+                {
+                    "name": "InputMoveAction",
+                    "type": "Value",
+                    "id": "918b08e8-c052-43b2-905f-c24e32e37f71",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InputPositionAction",
+                    "type": "Value",
+                    "id": "0f384244-52bd-4cc6-843f-4bf67a278b8a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InputScrollAction",
+                    "type": "Value",
+                    "id": "7444f821-5a7a-44a7-87ef-51b37d5ad231",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InputPressAction1",
+                    "type": "Button",
+                    "id": "3e5a53e3-7778-4bc4-950c-c6d3779116be",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InputHoldAction1",
+                    "type": "Button",
+                    "id": "e4704c0c-48d8-4b7e-b6bd-36fcf3652cb3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InputPressAction2",
+                    "type": "Button",
+                    "id": "e36ce8cf-d957-44d9-96c2-bb529ca77d12",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InputPressAction3",
+                    "type": "Button",
+                    "id": "78c58819-91d8-4153-82bb-c2d8041adecb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "81b52e29-90ce-4e0f-94a8-e813dca1a7ee",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputMoveAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a19e56f-8135-4f41-b933-90bdbbce4583",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputPositionAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c88f0d99-d00b-48fe-adbb-cf802132dfde",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputPressAction1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30e3ee97-a29f-40b0-80ea-1f05ce7fe265",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputPressAction2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a86ceda-232d-40de-bccd-da7bed640d84",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputPressAction3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff2747de-7c26-4a91-90da-1d1c0809c568",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputScrollAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c3a6a15-8676-4783-b808-8e4b6ee54a3e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputHoldAction1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Player",
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
