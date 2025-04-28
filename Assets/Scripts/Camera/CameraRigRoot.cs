@@ -13,6 +13,8 @@ public class CameraRigRoot : MonoBehaviour
     [SerializeField] private float m_zoomSpeed;
     [SerializeField] private float m_initialZoom;
     [SerializeField] private Vector2 m_zoomRange;
+    [SerializeField] private Vector2Int m_orthoZoomRange;
+    [SerializeField] private float m_initialOrthoZoom;
 
     [Header("Pitch")]
     [SerializeField] private Vector2 m_pitchRange;
@@ -66,7 +68,8 @@ public class CameraRigRoot : MonoBehaviour
         m_inputActions.CameraControlMap.Enable();
 
         m_cameraTransform.localPosition = new Vector3(0, m_initialZoom, 0);
-        m_rootTransform.eulerAngles = new Vector3(m_initialPitch +270, 0, 0);
+        m_rootTransform.eulerAngles = new Vector3(m_initialPitch + 270, 0, 0);
+        m_camera.orthographicSize = m_initialOrthoZoom;
         m_rotateState = 0;
         m_panState = 0;
         m_pitchState = 0;
@@ -77,7 +80,7 @@ public class CameraRigRoot : MonoBehaviour
 
     void Update()
     {
-        if(m_isEdge)
+        if (m_isEdge)
         {
             Vector3 delta = Vector3.zero;
             if (m_inputPosition.x <= m_screenScrollRangeX.x)
@@ -117,8 +120,15 @@ public class CameraRigRoot : MonoBehaviour
     private void UpdateZoom(Vector2 inputDelta)
     {
         float delta = -math.sign(inputDelta.y) * m_zoomSpeed;
-        float pos = math.clamp(m_cameraTransform.localPosition.y + delta, m_zoomRange.x, m_zoomRange.y);
-        m_cameraTransform.localPosition = new Vector3(0, pos, 0);
+        if (!m_camera.orthographic)
+        {
+            float pos = math.clamp(m_cameraTransform.localPosition.y + delta, m_zoomRange.x, m_zoomRange.y);
+            m_cameraTransform.localPosition = new Vector3(0, pos, 0);
+        }
+        else
+        {
+            m_camera.orthographicSize = math.clamp(m_camera.orthographicSize + delta, m_orthoZoomRange.x, m_orthoZoomRange.y);
+        }
     }
 
     private void UpdateEdgeScroll()
@@ -136,13 +146,13 @@ public class CameraRigRoot : MonoBehaviour
 
     private void UpdatePan()
     {
-        if(m_panState == 1 && m_rotateState == 0 && m_pitchState == 0)
+        if (m_panState == 1 && m_rotateState == 0 && m_pitchState == 0)
         {
             var ray = m_camera.ScreenPointToRay(m_inputPosition);
-            if(Physics.Raycast(ray, out RaycastHit hit, 1000, m_panFloorMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000, m_panFloorMask))
             {
                 var currentPanPosition = new Vector2(hit.point.x, hit.point.z);
-                var delta = m_panStartPosition -currentPanPosition;
+                var delta = m_panStartPosition - currentPanPosition;
                 m_rootTransform.position += new Vector3(delta.x, 0, delta.y);
             }
         }
@@ -181,7 +191,7 @@ public class CameraRigRoot : MonoBehaviour
     private void InputPressAction3_performed(InputAction.CallbackContext obj)
     {
         var ray = m_camera.ScreenPointToRay(m_inputPosition);
-        if(Physics.Raycast(ray, out RaycastHit hit, 1000, m_panFloorMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000, m_panFloorMask))
         {
             m_panState = 1;
             m_panStartPosition = new Vector2(hit.point.x, hit.point.z);

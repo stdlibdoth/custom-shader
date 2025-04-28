@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 616299410}
   - component: {fileID: 616299409}
   - component: {fileID: 616299408}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1096,6 +1096,10 @@ PrefabInstance:
       value: CameraRigRoot
       objectReference: {fileID: 0}
     - target: {fileID: 7374219316372832537, guid: 6d92a2a63590f0546bf91c6dffea4398, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374219316372832537, guid: 6d92a2a63590f0546bf91c6dffea4398, type: 3}
       propertyPath: m_OcclusionCulling
       value: 1
       objectReference: {fileID: 0}
@@ -1110,6 +1114,18 @@ PrefabInstance:
     - target: {fileID: 8929336763898133826, guid: 6d92a2a63590f0546bf91c6dffea4398, type: 3}
       propertyPath: m_initialZoom
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929336763898133826, guid: 6d92a2a63590f0546bf91c6dffea4398, type: 3}
+      propertyPath: m_initialOrthoZoom
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929336763898133826, guid: 6d92a2a63590f0546bf91c6dffea4398, type: 3}
+      propertyPath: m_orthoZoomRange.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929336763898133826, guid: 6d92a2a63590f0546bf91c6dffea4398, type: 3}
+      propertyPath: m_orthoZoomRange.y
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8929336763898133826, guid: 6d92a2a63590f0546bf91c6dffea4398, type: 3}
       propertyPath: m_panFloorMask.m_Bits
