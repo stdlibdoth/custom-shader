@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7e15173e80538f341a2c972967dee256
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204277
+  packageName: DawnShader for nonG2 Update
+  packageVersion: 1.5.2
+  assetPath: Assets/Shaders/Overview.unity
+  uploadId: 741506

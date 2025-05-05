@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503f70758239535428d698c94b58e34c, type: 3}
   m_Name: OutlineRenderFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   m_outlineSettings:
     color: {r: 1, g: 0.11006278, b: 0.9284418, a: 1}
     thickness: 0.56
